@@ -71,5 +71,19 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
       SubnetId: !Ref PublicSubnet
 
-
 # Stack name: update-cafe-network
+Outputs:
+  PublicSubnet:
+    Description: The subnet ID to use for public web servers
+    Value:
+      Ref: PublicSubnet
+    Export:
+      Name:
+        'Fn::Sub': '${AWS::StackName}-SubnetID'
+  VpcId:
+    Description: The VPC ID
+    Value:
+      Ref: VPC
+    Export:
+      Name:
+        'Fn::Sub': '${AWS::StackName}-VpcID'
