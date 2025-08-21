@@ -26,8 +26,8 @@ Mappings:
   RegionMap:
     us-east-1:
       "keypair": "KeyCafe"
-    us-west-2:
-      "keypair": "KeyCafe"
+    ap-southeast-1:
+      "keypair": "Keypair-EC2"
 
 Resources:
 
@@ -79,7 +79,7 @@ Resources:
             systemctl start httpd
             systemctl enable mariadb
             systemctl start mariadb
-            wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/ILT-TF-200-ACACAD-20-EN/mod10-challenge/cafe-app.sh
+            wget https://github.com/sang96011/AWS-LAB/raw/refs/heads/main/cafe-app.sh
             chmod +x cafe-app.sh
             ./cafe-app.sh
 
