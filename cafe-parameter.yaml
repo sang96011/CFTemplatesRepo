@@ -1,0 +1,80 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Parameter for the cafe
+
+Parameters:
+  CafeAppParameter:
+    Type: String
+    Default: update-cafe-app
+
+Resources:
+  DbUrlParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/dbUrl'
+      Type: String
+      Value: !ImportValue
+        'Fn::Sub': '${CafeAppParameter}-PublicDNS'
+
+  DbNameParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/dbName'
+      Type: String
+      Value: cafe_db
+
+  DbUserParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/dbUser'
+      Type: String
+      Value: root
+
+  DbPasswordParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/dbPassword'
+      Type: String
+      Value: 'Re:Start!9'
+
+  ServerInfoParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/showServerInfo'
+      Type: String
+      Value: true
+
+  TimeZoneParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/timeZone'
+      Type: String
+      Value: 'America/New_York'
+
+  CurrencyParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/currency'
+      Type: String
+      Value: '$'
+
+Outputs:
+  DbUrlParameter:
+    Value: !GetAtt DbUrlParameter.Value
+
+  DbNameParameter:
+    Value: !GetAtt DbNameParameter.Value
+
+  DbUserParameter:
+    Value: !GetAtt DbUserParameter.Value
+
+  DbPasswordParameter:
+    Value: !GetAtt DbPasswordParameter.Value
+
+  ServerInfoParameter:
+    Value: !GetAtt ServerInfoParameter.Value
+
+  TimeZoneParameter:
+    Value: !GetAtt TimeZoneParameter.Value
+
+  CurrencyParameter:
+    Value: !GetAtt CurrencyParameter.Value
