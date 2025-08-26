@@ -12,6 +12,13 @@ Resources:
     Properties:
       Name: '/cafe/dbUrl'
       Type: String
+      Value: localhost
+
+  PublicDNSParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: '/cafe/PublicDNS'
+      Type: String
       Value: !ImportValue
         'Fn::Sub': '${CafeAppParameter}-PublicDNS'
 
