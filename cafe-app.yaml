@@ -5,7 +5,7 @@ Parameters:
 
   LatestAmiId:
     Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
-    Default: '/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64' # Amazon Linux 2023
+    Default: '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2' # Amazon Linux 2
 
   CafeNetworkParameter:
     Type: String
@@ -57,8 +57,6 @@ Resources:
       InstanceType: !Ref InstanceTypeParameter
       KeyName: !FindInMap [RegionMap, !Ref "AWS::Region", keypair]
       IamInstanceProfile: 'CafeRole'
-      MetadataOptions: 
-        HttpTokens: optional
       NetworkInterfaces:
         - DeviceIndex: '0'
           AssociatePublicIpAddress: 'true'
@@ -74,14 +72,13 @@ Resources:
           !Sub |
             #!/bin/bash
             yum -y update
-            yum install -y httpd mariadb105-server wget
-            yum install -y php
-            dnf install -y php-mysqli
+            yum install -y httpd mariadb-server wget
+            amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
             systemctl enable httpd
             systemctl start httpd
             systemctl enable mariadb
             systemctl start mariadb
-            wget https://github.com/sang96011/AWS-LAB/raw/refs/heads/main/cafe-app.sh
+            wget https://aws-tc-largeobjects.s3-us-west-2.amazonaws.com/ILT-TF-200-ACACAD-20-EN/mod10-challenge/cafe-app.sh
             chmod +x cafe-app.sh
             ./cafe-app.sh
 
